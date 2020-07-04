@@ -8,6 +8,23 @@ Removing lines of code related to `lightning/datatableKeyboardMixins` allows the
 
 For simplicity, references to custom data types passing of typeAttributes data has been omitted.
 
+## Repro Steps
+
+1. Clone this repo to a desired directory.
+
+```
+git clone https://github.com/tsalb/lightning-datatable-accessibility-issue
+```
+
+2. Create Default Scratch Org
+
+3. Push
+
+4. Open Default Scratch Org
+
+5. App Launcher => Datatable Error (App)
+    - I've forced standard app visibility to hidden in the profile, there should only be one app in the app launcher
+
 ## Error on load
 
 ![aura-error](/readme-images/aura-error.png?raw=true)
