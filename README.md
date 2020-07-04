@@ -1,58 +1,185 @@
-# Salesforce App
+# lightning/datatableKeyboardMixins error
 
-This guide helps Salesforce developers who are new to Visual Studio Code go from zero to a deployed app using Salesforce Extensions for VS Code and Salesforce CLI.
+Fresh scratch org, spring 20 (also tried on summer 20 and same issue).
 
-## Part 1: Choosing a Development Model
+Seems to be a platform aura gack when copy pasting straight from the `lightning-datatable` docs.
 
-There are two types of developer processes or models supported in Salesforce Extensions for VS Code and Salesforce CLI. These models are explained below. Each model offers pros and cons and is fully supported.
+Removing lines of code related to `lightning/datatableKeyboardMixins` allows the custom data type to be used.
 
-### Package Development Model
+For simplicity, references to custom data types passing of typeAttributes data has been omitted.
 
-The package development model allows you to create self-contained applications or libraries that are deployed to your org as a single package. These packages are typically developed against source-tracked orgs called scratch orgs. This development model is geared toward a more modern type of software development process that uses org source tracking, source control, and continuous integration and deployment.
+## Error on load
 
-If you are starting a new project, we recommend that you consider the package development model. To start developing with this model in Visual Studio Code, see [Package Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/package-development-model). For details about the model, see the [Package Development Model](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_dev_model) Trailhead module.
+![aura-error](/readme-images/aura-error.png?raw=true)
 
-If you are developing against scratch orgs, use the command `SFDX: Create Project` (VS Code) or `sfdx force:project:create` (Salesforce CLI)  to create your project. If you used another command, you might want to start over with that command.
-
-When working with source-tracked orgs, use the commands `SFDX: Push Source to Org` (VS Code) or `sfdx force:source:push` (Salesforce CLI) and `SFDX: Pull Source from Org` (VS Code) or `sfdx force:source:pull` (Salesforce CLI). Do not use the `Retrieve` and `Deploy` commands with scratch orgs.
-
-### Org Development Model
-
-The org development model allows you to connect directly to a non-source-tracked org (sandbox, Developer Edition (DE) org, Trailhead Playground, or even a production org) to retrieve and deploy code directly. This model is similar to the type of development you have done in the past using tools such as Force.com IDE or MavensMate.
-
-To start developing with this model in Visual Studio Code, see [Org Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/org-development-model). For details about the model, see the [Org Development Model](https://trailhead.salesforce.com/content/learn/modules/org-development-model) Trailhead module.
-
-If you are developing against non-source-tracked orgs, use the command `SFDX: Create Project with Manifest` (VS Code) or `sfdx force:project:create --manifest` (Salesforce CLI) to create your project. If you used another command, you might want to start over with this command to create a Salesforce DX project.
-
-When working with non-source-tracked orgs, use the commands `SFDX: Deploy Source to Org` (VS Code) or `sfdx force:source:deploy` (Salesforce CLI) and `SFDX: Retrieve Source from Org` (VS Code) or `sfdx force:source:retrieve` (Salesforce CLI). The `Push` and `Pull` commands work only on orgs with source tracking (scratch orgs).
-
-## The `sfdx-project.json` File
-
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
-
-The most important parts of this file for getting started are the `sfdcLoginUrl` and `packageDirectories` properties.
-
-The `sfdcLoginUrl` specifies the default login URL to use when authorizing an org.
-
-The `packageDirectories` filepath tells VS Code and Salesforce CLI where the metadata files for your project are stored. You need at least one package directory set in your file. The default setting is shown below. If you set the value of the `packageDirectories` property called `path` to `force-app`, by default your metadata goes in the `force-app` directory. If you want to change that directory to something like `src`, simply change the `path` value and make sure the directory you’re pointing to exists.
-
-```json
-"packageDirectories" : [
-    {
-      "path": "force-app",
-      "default": true
-    }
-]
+```
+afterRender threw an error in 'c:datatableExample' [Access denied: {"from":{"namespace":"system"},"to":{"namespace":"c"}}]
 ```
 
-## Part 2: Working with Source
+## Stack Trace
 
-For details about developing against scratch orgs, see the [Package Development Model](https://trailhead.salesforce.com/en/content/learn/modules/sfdx_dev_model) module on Trailhead or [Package Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/package-development-model).
+```
+le()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:29:2516
+On()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:29:34982
+Hn.getPrototypeOf()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:29:36342
+cr()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:4:30845
+ir()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:4:30907
+{anonymous}()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:4:18366
+Object.create()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:4:18454
+sn()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:4:14668
+fn()@https://static.lightning.force.com/cs68/auraFW/javascript/ozbOZt5SYUotl8he3imvcA/aura_prod.js:4:15518
+```
 
-For details about developing against orgs that don’t have source tracking, see the [Org Development Model](https://trailhead.salesforce.com/content/learn/modules/org-development-model) module on Trailhead or [Org Development Model with VS Code](https://forcedotcom.github.io/salesforcedx-vscode/articles/user-guide/org-development-model).
+#### datatableExtension LWC
 
-## Part 3: Deploying to Production
+```js
+// datatableExtension.js
+import LightningDatatable from 'lightning/datatable';
+import deleteRow from './deleteRow.html';
 
-Don’t deploy your code to production directly from Visual Studio Code. The deploy and retrieve commands do not support transactional operations, which means that a deployment can fail in a partial state. Also, the deploy and retrieve commands don’t run the tests needed for production deployments. The push and pull commands are disabled for orgs that don’t have source tracking, including production orgs.
+export default class datatableExtension extends LightningDatatable {
+    static customTypes = {
+        deleteRowButton: {
+            template: deleteRow,
+            standardCellLayout: true
+        }
+    };
+}
+```
 
-Deploy your changes to production using [packaging](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_dev2gp.htm) or by [converting your source](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_source.htm#cli_reference_convert) into metadata format and using the [metadata deploy command](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_force_mdapi.htm#cli_reference_deploy).
+```html
+<!-- datatableExtension/deleteRow.html -->
+<template>
+    <c-datatable-delete-row-btn data-navigation="enable" row-id="{value}"></c-datatable-delete-row-btn>
+</template>
+```
+
+#### datatableDeleteRowBtn LWC
+
+```html
+<!-- datatableDeleteRowBtn.html -->
+<template>
+    <div style="text-align: center;">
+        <lightning-button-icon icon-name="utility:delete" onclick="{fireDeleteRow}"> </lightning-button-icon>
+    </div>
+</template>
+```
+
+```js
+// datatableDeleteRowBtn.js
+import { LightningElement, api } from 'lwc';
+import { baseNavigation } from 'lightning/datatableKeyboardMixins';
+import template from './datatableDeleteRowBtn.html';
+
+export default class DatatableDeleteRowBtn extends baseNavigation(LightningElement) {
+    @api rowId;
+
+    // Required for mixins
+    render() {
+        return template;
+    }
+
+    fireDeleteRow() {
+        const event = CustomEvent('deleterow', {
+            composed: true,
+            bubbles: true,
+            cancelable: true,
+            detail: {
+                rowId: this.rowId
+            }
+        });
+        this.dispatchEvent(event);
+    }
+}
+```
+
+#### datatableExample LWC
+
+```html
+<!-- datatableExample.html -->
+<template>
+    <div style="text-align: center;">
+        <lightning-button-icon icon-name="utility:delete" onclick="{fireDeleteRow}"> </lightning-button-icon>
+    </div>
+</template>
+```
+
+```js
+// datatableExample.js
+import { LightningElement } from 'lwc';
+
+const COLUMNS = [
+    { label: 'Opportunity name', fieldName: 'opportunityName', type: 'text' },
+    {
+        label: 'Confidence',
+        fieldName: 'confidence',
+        type: 'percent',
+        cellAttributes: { iconName: { fieldName: 'trendIcon' }, iconPosition: 'right' }
+    },
+    { label: 'Amount', fieldName: 'amount', type: 'currency', typeAttributes: { currencyCode: 'EUR' } },
+    { label: 'Contact Email', fieldName: 'contact', type: 'email' },
+    { label: 'Contact Phone', fieldName: 'phone', type: 'phone' },
+    {
+        label: '',
+        type: 'deleteRowButton',
+        fieldName: 'id',
+        fixedWidth: 70
+    }
+];
+
+const DATA = [
+    {
+        id: 'a',
+        opportunityName: 'Cloudhub',
+        confidence: 0.2,
+        amount: 25000,
+        contact: 'jrogers@cloudhub.com',
+        phone: '2352235235',
+        trendIcon: 'utility:down'
+    },
+    {
+        id: 'b',
+        opportunityName: 'Quip',
+        confidence: 0.78,
+        amount: 740000,
+        contact: 'quipy@quip.com',
+        phone: '2352235235',
+        trendIcon: 'utility:up'
+    }
+];
+
+export default class DatatableExample extends LightningElement {
+    data = DATA;
+    columns = COLUMNS;
+}
+```
+
+## Working example with extension commented out on datatableDeleteRowBtn
+
+```js
+// datatableDeleteRowBtn.js WORKING
+import { LightningElement, api } from 'lwc';
+import { baseNavigation } from 'lightning/datatableKeyboardMixins'; // not used
+import template from './datatableDeleteRowBtn.html'; // not used
+
+export default class DatatableDeleteRowBtn extends LightningElement {
+    @api rowId;
+
+    // Required for mixins
+    // render() {
+    //     return template;
+    // }
+
+    fireDeleteRow() {
+        const event = CustomEvent('deleterow', {
+            composed: true,
+            bubbles: true,
+            cancelable: true,
+            detail: {
+                rowId: this.rowId
+            }
+        });
+        this.dispatchEvent(event);
+    }
+}
+```

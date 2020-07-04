@@ -15,11 +15,7 @@ const COLUMNS = [
         label: '',
         type: 'deleteRowButton',
         fieldName: 'id',
-        fixedWidth: 70,
-        typeAttributes: {
-            attrA: { fieldName: 'attrA' },
-            attrB: { fieldName: 'attrB' }
-        }
+        fixedWidth: 70
     }
 ];
 
