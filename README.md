@@ -8,7 +8,7 @@ Removing lines of code related to `lightning/datatableKeyboardMixins` allows the
 
 For simplicity, references to custom data types passing of typeAttributes data has been omitted.
 
-## Repro Steps
+## Repro steps
 
 1. Clone this repo to a desired directory.
 
@@ -24,6 +24,12 @@ git clone https://github.com/tsalb/lightning-datatable-accessibility-issue
 
 5. App Launcher => Datatable Error (App)
     - I've forced standard app visibility to hidden in the profile, there should only be one app in the app launcher
+
+## Unable to repro in Playground
+
+Interestingly enough, this is not reproducible in the Playground:
+
+https://developer.salesforce.com/docs/component-library/tools/playground/I93mYl8MU/19/edit
 
 ## Error on load
 
