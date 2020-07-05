@@ -121,9 +121,12 @@ export default class DatatableDeleteRowBtn extends baseNavigation(LightningEleme
 ```html
 <!-- datatableExample.html -->
 <template>
-    <div style="text-align: center;">
-        <lightning-button-icon icon-name="utility:delete" onclick="{fireDeleteRow}"> </lightning-button-icon>
-    </div>
+    <c-datatable-extension
+        key-field="id"
+        hide-checkbox-column
+        data="{data}"
+        columns="{columns}"
+    ></c-datatable-extension>
 </template>
 ```
 
