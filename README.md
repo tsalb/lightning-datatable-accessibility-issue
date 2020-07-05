@@ -106,7 +106,7 @@ export default class DatatableDeleteRowBtn extends baseNavigation(LightningEleme
         const event = CustomEvent('deleterow', {
             composed: true,
             bubbles: true,
-            cancelable: true,
+            cancelable: true, // commented out in playground to avoid some other errors, but doesn't affect this bug
             detail: {
                 rowId: this.rowId
             }
@@ -197,7 +197,7 @@ export default class DatatableDeleteRowBtn extends LightningElement {
         const event = CustomEvent('deleterow', {
             composed: true,
             bubbles: true,
-            cancelable: true,
+            cancelable: true, // commented out in playground to avoid some other errors, but doesn't affect this bug
             detail: {
                 rowId: this.rowId
             }
